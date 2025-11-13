@@ -14,11 +14,12 @@ Optional test data for local checking:
 [Test data](test-data.sql)
 
 **Folder structure:**
-pharmacy-sales-db/
-    ├── schema.sql
-    ├── queries.sql
-    ├── test-data.sql
-    └── README.md
+
+    pharmacy-sales-db/    
+        ├── schema.sql
+        ├── queries.sql
+        ├── test-data.sql
+        └── README.md
 
 **ER Diagram**
 ![img.png](img.png)
