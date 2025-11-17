@@ -19,3 +19,5 @@ CREATE TABLE rm_character (
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
+
+ALTER TABLE rm_character ADD FULLTEXT INDEX ft_rm_character_name(name);
