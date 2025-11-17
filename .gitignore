@@ -1,0 +1,9 @@
+HELP.md
+.idea/
+*.iml
+target/
+
+# Environment variables
+.env
+*.env
+!.env.example

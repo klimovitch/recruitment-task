@@ -1,0 +1,51 @@
+services:
+  mariadb:
+    image: library/mariadb:10.5
+    container_name: rickmorty-db
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: rickmorty
+      MARIADB_USER: dev
+      MARIADB_PASSWORD: dev
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-udev", "-pdev" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: rickmorty-app
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/rickmorty
+      SPRING_DATASOURCE_USERNAME: dev
+      SPRING_DATASOURCE_PASSWORD: dev
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  redis:
+    image: redis:7
+    container_name: rickmorty-redis
+    ports:
+      - "6380:6379"
+
+volumes:
+  mariadb_data:
+
